@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}🐱 Ще рано...{% endblock %}
+
+{% block body_class %}early-page{% endblock %}
+
+{% block body %}
+<div class="page-container">
+    <!-- Background floating flowers -->
+    <div id="bgFlowers"></div>
+
+    <div class="content-card">
+        <div class="early-cat-container">
+            <canvas id="earlyCatCanvas" width="420" height="420"></canvas>
+        </div>
+        <p class="early-text">Ще рано 🐱</p>
+        <p class="early-subtext">Повертайся пізніше... котик чекає!</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/cat.js') }}"></script>
+<script src="{{ url_for('static', filename='js/early.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}🎁 Підказка...{% endblock %}
+
+{% block head %}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+{% endblock %}
+
+{% block body %}
+<div class="page-container">
+    <div class="content-card content-card--wide">
+        <h2 style="margin-bottom: 2rem;">Що ж це може бути? 🤔</h2>
+
+        <!-- Hints Section -->
+        <div class="hints-section">
+            <div class="hint-item hint-item--crossed">
+                <span class="hint-emoji">🐅</span>
+                <span>Побачити бенгальського тигра</span>
+            </div>
+            <div class="hint-item hint-item--active">
+                <span class="hint-emoji">📸</span>
+                <span>Зловити найкращі моменти назавжди</span>
+            </div>
+        </div>
+
+        <hr style="border: none; border-top: 1px solid rgba(232,213,227,0.4); margin: 2rem 0;">
+
+        <h2 style="margin-bottom: 0.5rem;">Куди надіслати? 📦</h2>
+        <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">Обери відділення Нової Пошти</p>
+
+        <!-- Gift Form -->
+        <form id="giftForm">
+            <div class="form-section">
+                <!-- City Search -->
+                <div class="form-group form-group--relative">
+                    <label for="citySearch">🏙️ Місто</label>
+                    <input type="text" id="citySearch" class="form-input" placeholder="Введи назву міста..." autocomplete="off">
+                    <div id="citySuggestions" class="suggestions-dropdown"></div>
+                    <input type="hidden" id="cityRef" name="cityRef">
+                    <input type="hidden" id="cityName" name="cityName">
+                </div>
+
+                <!-- Warehouse Select -->
+                <div class="form-group">
+                    <label for="warehouseSelect">📮 Відділення</label>
+                    <select id="warehouseSelect" class="form-select" disabled>
+                        <option value="">Спочатку обери місто</option>
+                    </select>
+                    <input type="hidden" id="warehouseName" name="warehouseName">
+                </div>
+
+                <!-- Map -->
+                <div class="map-container">
+                    <div id="map"></div>
+                </div>
+
+                <!-- Star Rating -->
+                <div class="form-group" style="text-align: center;">
+                    <label>⭐ Як тобі сподобалось?</label>
+                    <div id="starRating" class="star-rating"></div>
+                    <div class="rating-label" id="ratingLabel"></div>
+                    <input type="hidden" id="ratingValue" name="rating">
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn btn--submit" id="submitBtn">
+                    Відправити 💌
+                </button>
+
+                <div id="formMessage"></div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="{{ url_for('static', filename='js/gift.js') }}"></script>
+{% endblock %}

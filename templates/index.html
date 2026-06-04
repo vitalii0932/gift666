@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}🎂 З Днем Народження!{% endblock %}
+
+{% block body %}
+<!-- Canvas layer for flower animation -->
+<div class="canvas-layer">
+    <canvas id="flowersCanvas"></canvas>
+</div>
+
+<div class="page-container" id="mainContent">
+    <div class="content-card" id="contentCard" style="opacity: 0;">
+        <h1 class="main-title" id="mainTitle">Коть, з днем народження!</h1>
+
+        <p class="main-subtitle" id="mainSubtitle">
+            Хочу щоб цей день був наповнений теплом і радістю 🌸<br>
+            Ти — неймовірна, і заслуговуєш на все найкраще у цьому світі 💛<br>
+            Нехай кожен новий день приносить тобі усмішку!
+        </p>
+
+        <p class="main-question" id="mainQuestion">
+            У тебе є повне право обрати —<br>чи хочеш ти подарунок?
+        </p>
+
+        <div class="buttons-row" id="buttonsRow">
+            <a href="/gift" class="btn btn--yes" id="btnYes">Так! 🎁</a>
+            <button class="btn btn--no" id="btnNo">Ні 😿</button>
+        </div>
+    </div>
+</div>
+
+<!-- Cat area for peeking and stealing the No button -->
+<div class="cat-area" id="catArea">
+    <div class="speech-bubble" id="speechBubble">
+        Я вирішив, що у тебе є тільки один вибір 😼
+    </div>
+    <canvas id="catCanvas" width="400" height="250"></canvas>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/flowers.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cat.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
