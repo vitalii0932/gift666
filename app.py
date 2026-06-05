@@ -33,7 +33,7 @@ NP_API_KEY = os.getenv('NOVA_POSHTA_API_KEY', '')
 
 # ---- Kyiv Timezone (UTC+2 as specified) ----
 KYIV_TZ = timezone(timedelta(hours=3))
-GATE_DATE = datetime(2026, 6, 5, 21, 50, tzinfo=KYIV_TZ)
+GATE_DATE = datetime(2026, 6, 6, 0, 1, tzinfo=KYIV_TZ)
 
 
 def is_too_early():
