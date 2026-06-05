@@ -54,7 +54,12 @@ const FlowerAnimation = (() => {
     const spacing = W / (bushCount + 1);
 
     for (let i = 0; i < bushCount; i++) {
-      const bushBaseX = spacing * (i + 1) + rand(-spacing * 0.2, spacing * 0.2);
+      let bushBaseX;
+      if (bushCount === 2) {
+        bushBaseX = i === 0 ? W * 0.15 + rand(-10, 10) : W * 0.85 + rand(-10, 10);
+      } else {
+        bushBaseX = spacing * (i + 1) + rand(-spacing * 0.2, spacing * 0.2);
+      }
       const bushBaseY = H;
       
       const stemCount = randInt(2, 4);

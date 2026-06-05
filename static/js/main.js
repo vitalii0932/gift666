@@ -144,6 +144,22 @@
                         // Change cat expression to mischievous
                         catCtx.clearRect(0, 0, canvasW, canvasH);
                         CatDrawer.drawPeeking(catCtx, canvasW / 2, canvasH, catScale, 1, 0, 0, 'mischievous');
+                        
+                        // Leave a paw print!
+                        if (!window.pawPrintLeft) {
+                            window.pawPrintLeft = true;
+                            const print = document.createElement('div');
+                            print.innerHTML = '🐾';
+                            print.style.position = 'fixed';
+                            print.style.left = endX + 'px';
+                            print.style.top = endY + 'px';
+                            print.style.fontSize = '3rem';
+                            print.style.opacity = '0.4';
+                            print.style.transform = `translate(-50%, -50%) rotate(-15deg)`;
+                            print.style.zIndex = '130';
+                            print.style.pointerEvents = 'none';
+                            document.body.appendChild(print);
+                        }
                     }
 
                     // When pulling back (>0.5), move the button with the paw

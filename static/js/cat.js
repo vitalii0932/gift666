@@ -246,9 +246,9 @@ const CatDrawer = (() => {
         const tailX = centerX + 38 * scale;
         ctx.moveTo(tailX, bodyY + 8 * scale);
         ctx.bezierCurveTo(
-            tailX + 25 * scale, bodyY - 5 * scale,
-            tailX + 38 * scale, bodyY - 35 * scale,
-            tailX + 28 * scale, bodyY - 48 * scale
+            tailX + 25 * scale, bodyY + 5 * scale,
+            tailX + 38 * scale, bodyY - 10 * scale,
+            tailX + 28 * scale, bodyY - 20 * scale
         );
         ctx.stroke();
         ctx.strokeStyle = COL.outline;
@@ -352,17 +352,18 @@ const CatDrawer = (() => {
     }
 
     /** Draw a paw reaching out. */
-    function drawPaw(ctx, x, y, scale, rotation) {
+    function drawPaw(ctx, x, y, scale, rotation, isStealing = false) {
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(rotation || 0);
 
         // Arm
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(0, -35 * scale);
+        const armBase = isStealing ? 4000 * scale : 0;
+        ctx.moveTo(0, armBase);
+        ctx.lineTo(0, -50 * scale);
         ctx.strokeStyle = COL.body;
-        ctx.lineWidth = 16 * scale;
+        ctx.lineWidth = 26 * scale;
         ctx.lineCap = 'round';
         ctx.stroke();
         ctx.strokeStyle = COL.outline;
@@ -372,22 +373,24 @@ const CatDrawer = (() => {
         // Fur on arm
         const rng = seededRandom(77);
         ctx.lineWidth = 0.8 * scale;
-        for (let i = 0; i < 12; i++) {
-            const ay = -35 * scale * (i / 12);
+        const furCount = isStealing ? 300 : 18;
+        const armLenSpan = armBase - (-50 * scale);
+        for (let i = 0; i < furCount; i++) {
+            const ay = -50 * scale + armLenSpan * (i / furCount);
             const side = rng() > 0.5 ? -1 : 1;
             ctx.strokeStyle = rng() > 0.5 ? COL.furLight : COL.furDark;
             ctx.globalAlpha = 0.3;
             ctx.beginPath();
-            ctx.moveTo(side * 7 * scale, ay);
-            ctx.lineTo(side * (7 + 3 * rng()) * scale, ay - 3 * rng() * scale);
+            ctx.moveTo(side * 12 * scale, ay);
+            ctx.lineTo(side * (12 + 5 * rng()) * scale, ay - 5 * rng() * scale);
             ctx.stroke();
         }
         ctx.globalAlpha = 1;
 
         // Paw pad
-        const pawY = -38 * scale;
+        const pawY = -54 * scale;
         ctx.beginPath();
-        ctx.ellipse(0, pawY, 12 * scale, 9 * scale, 0, 0, Math.PI * 2);
+        ctx.ellipse(0, pawY, 18 * scale, 14 * scale, 0, 0, Math.PI * 2);
         ctx.fillStyle = COL.light;
         ctx.fill();
         ctx.strokeStyle = COL.outline;
@@ -395,12 +398,12 @@ const CatDrawer = (() => {
         ctx.stroke();
         for (let t = -1; t <= 1; t++) {
             ctx.beginPath();
-            ctx.arc(t * 4.5 * scale, pawY - 1 * scale, 2 * scale, 0, Math.PI * 2);
+            ctx.arc(t * 6.5 * scale, pawY - 2 * scale, 3.5 * scale, 0, Math.PI * 2);
             ctx.fillStyle = COL.pawPad;
             ctx.fill();
         }
         ctx.beginPath();
-        ctx.arc(0, pawY + 3 * scale, 2.5 * scale, 0, Math.PI * 2);
+        ctx.arc(0, pawY + 4 * scale, 4 * scale, 0, Math.PI * 2);
         ctx.fillStyle = COL.pawPad;
         ctx.fill();
 
@@ -454,8 +457,7 @@ const CatDrawer = (() => {
 
             ctx.save();
             let currentX, currentY;
-            const rotation = Math.atan2(endY - startY, endX - startX) - Math.PI / 2;
-
+            
             if (p <= 0.5) {
                 const t = p / 0.5;
                 const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
@@ -467,8 +469,9 @@ const CatDrawer = (() => {
                 currentX = endX + (startX - endX) * ease;
                 currentY = endY + (startY - endY) * ease;
             }
-
-            drawPaw(ctx, currentX, currentY, scale, rotation);
+            
+            const rotation = Math.atan2(endY - startY, endX - startX) + Math.PI / 2;
+            drawPaw(ctx, currentX, currentY, scale, rotation, true);
             ctx.restore();
         },
 

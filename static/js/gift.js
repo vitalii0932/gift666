@@ -275,6 +275,7 @@ const GiftPage = {
         const cityName = document.getElementById('cityName').value;
         const warehouseName = document.getElementById('warehouseName').value;
         const rating = document.getElementById('ratingValue').value;
+        const feedback = document.getElementById('feedbackText').value;
 
         let valid = true;
 
@@ -305,7 +306,7 @@ const GiftPage = {
         fetch('/submit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cityName, warehouseName, rating }),
+            body: JSON.stringify({ cityName, warehouseName, rating, feedback }),
         })
             .then(res => {
                 if (!res.ok) throw new Error('Помилка сервера');

@@ -321,8 +321,9 @@ p {
 }
 
 .early-cat-container {
-    width: 420px;
-    height: 420px;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 1 / 1;
     margin: 0 auto 1.5rem;
 }
 

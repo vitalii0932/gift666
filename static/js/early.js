@@ -50,9 +50,9 @@
 
         ctx.clearRect(0, 0, w, h);
 
-        const centerX = w / 2;
-        const centerY = h / 2 + 10;
-        const scale = Math.min(w, h) / 130;
+        const scale = Math.min(w, h) / 160;
+        const centerX = w / 2 - 12 * scale;
+        const centerY = h / 2 + 15 * scale;
 
         CatDrawer.drawWithTrackingEyes(ctx, centerX, centerY, scale, mouseX, mouseY);
 

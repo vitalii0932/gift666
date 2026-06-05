@@ -32,8 +32,8 @@ NP_API_URL = 'https://api.novaposhta.ua/v2.0/json/'
 NP_API_KEY = os.getenv('NOVA_POSHTA_API_KEY', '')
 
 # ---- Kyiv Timezone (UTC+2 as specified) ----
-KYIV_TZ = timezone(timedelta(hours=2))
-GATE_DATE = datetime(2026, 6, 6, 0, 1, tzinfo=KYIV_TZ)
+KYIV_TZ = timezone(timedelta(hours=3))
+GATE_DATE = datetime(2026, 6, 5, 21, 50, tzinfo=KYIV_TZ)
 
 
 def is_too_early():
@@ -74,6 +74,7 @@ def submit():
         city_name = data.get('cityName', 'Не вказано')
         warehouse_name = data.get('warehouseName', 'Не вказано')
         rating = data.get('rating', 'Не вказано')
+        feedback = data.get('feedback', '')
 
         # Compose email
         subject = '🎁 Катя обрала відділення для подарунка!'
@@ -83,6 +84,7 @@ def submit():
 📍 Місто: {city_name}
 📮 Відділення: {warehouse_name}
 ⭐ Оцінка: {rating}/5
+💬 Відгук: {feedback}
 
 ---
 Відправлено автоматично з Birthday Gift App
@@ -107,6 +109,7 @@ def submit():
                 f.write(f'Місто: {city_name}\n')
                 f.write(f'Відділення: {warehouse_name}\n')
                 f.write(f'Оцінка: {rating}/5\n')
+                f.write(f'Відгук: {feedback}\n')
 
         return jsonify({'success': True})
 
